@@ -1,1 +1,25 @@
-<p>pagination works!</p>
+<div *ngIf="pageCount > 1" class="pagination">
+  <div
+    class="pagination__button"
+    [ngClass]="currentPage === 1 ? 'disabled' : ''"
+    (click)="onPreviousPage()"
+  >
+    <img src="/assets/icons/arrow_left.svg" alt="previous" />
+  </div>
+  <div
+    *ngFor="let page of [].constructor(pageCount); index as index"
+    class="pagination__dot"
+  >
+    <span
+      [ngClass]="currentPage === index + 1 ? 'active' : ''"
+      (click)="onSelectPage(index + 1)"
+    ></span>
+  </div>
+  <div
+    class="pagination__button"
+    [ngClass]="currentPage === pageCount ? 'disabled' : ''"
+    (click)="onNextPage()"
+  >
+    <img src="/assets/icons/arrow_right.svg" alt="next" />
+  </div>
+</div>

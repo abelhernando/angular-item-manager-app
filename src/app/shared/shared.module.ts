@@ -5,12 +5,13 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { SearchComponent } from './search/search.component';
 import { SortComponent } from './sort/sort.component';
 
-
-
 @NgModule({
-  declarations: [CardComponent, PaginationComponent, SearchComponent, SortComponent],
-  imports: [
-    CommonModule
-  ]
+  declarations: [
+    PaginationComponent,
+    SearchComponent,
+    SortComponent,
+  ],
+  imports: [CommonModule],
+  exports: [PaginationComponent, SearchComponent, SortComponent],
 })
-export class SharedModule { }
+export class SharedModule {}

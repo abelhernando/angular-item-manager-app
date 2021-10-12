@@ -1,0 +1,45 @@
+.pagination {
+  display: flex;
+  place-content: center;
+
+  &__button img {
+    margin: 10px;
+    width: 10px;
+    cursor: pointer;
+  }
+
+  &__dot {
+    margin: 0 10px;
+    cursor: pointer;
+    align-self: center;
+
+    span {
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      position: relative;
+      border-radius: 50%;
+
+      &:before {
+        content: "";
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        right: 3px;
+        bottom: 3px;
+        border-radius: 50%;
+        background: #d3d1d1;
+      }
+    }
+    .active {
+      &::before {
+        background: #00aaca;
+        transform: scale(1.4, 1.4);
+        transition: 0.2s all ease-out;
+      }
+    }
+  }
+  .disabled {
+    visibility: hidden;
+  }
+}

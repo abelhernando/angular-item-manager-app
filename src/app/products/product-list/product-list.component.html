@@ -1,7 +1,12 @@
 <div class="container">
-  <div *ngFor="let product of productList; index as index">
-    <ul>
-      <li>{{ product.title }}</li>
-    </ul>
+  <app-search (searchedItem)="onSearchItem($event)"></app-search>
+  <div class="home__card-container">
+    <app-card *ngFor="let product of productList"
+    [cardInfo]="product">
+    </app-card>
   </div>
+  <app-pagination
+    [pageCount]="pageCount"
+    (changePage)="onPageChange($event)"
+  ></app-pagination>
 </div>

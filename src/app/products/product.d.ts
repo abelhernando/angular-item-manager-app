@@ -5,3 +5,9 @@ interface Product {
   email: string;
   image: string;
 }
+
+interface ProductsResponse {
+  products: Product[];
+  totalCount: number;
+  pageCount: number;
+}

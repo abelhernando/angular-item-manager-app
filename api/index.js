@@ -15,7 +15,11 @@ app.listen(port, () => {
 });
 
 app.get("/products", (req, res) => {
-  const response = logic.getProducts();
+  const search = req.query.search;
+  let response;
+
+  if (search) response = logic.getSearchedItems(search);
+  else response = logic.getAllItems();
 
   res.status(200).json(response);
 });

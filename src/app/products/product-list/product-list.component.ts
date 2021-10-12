@@ -8,6 +8,8 @@ import { ProductsService } from '../products.service';
 })
 export class ProductListComponent implements OnInit {
   productList: Product[] = [];
+  totalItems = 0;
+  pageCount = 0;
 
   constructor(private productService: ProductsService) {}
 
@@ -15,13 +17,24 @@ export class ProductListComponent implements OnInit {
     this.getProductList();
   }
 
-  getProductList() {
-    this.productService.getProductList().subscribe(
+  getProductList(pageNumber: number = 1): void {
+    this.productService.getProductList(pageNumber).subscribe(
       (response) => {
         console.log('~ response', response);
-        this.productList = response;
+        this.productList = response.products;
+        this.totalItems = response.totalCount;
+        this.pageCount = response.pageCount;
       },
       (err) => console.warn(err)
     );
+  }
+
+  onPageChange(pageNumber: number = 1): void {
+    this.getProductList(pageNumber);
+  }
+  onSearchItem(item: any): void {
+    this.productList = item.items;
+    this.totalItems = item.totalCount;
+    this.pageCount = item.pageCount;
   }
 }

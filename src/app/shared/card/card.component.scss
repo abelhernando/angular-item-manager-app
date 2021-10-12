@@ -1,0 +1,128 @@
+.card {
+  margin-right: 25px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0, 1);
+  background-color: #fff;
+  position: relative;
+  border-radius: 12px;
+  height: 350px;
+  overflow: hidden;
+  box-shadow: 0px 13px 10px -7px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    box-shadow: 0px 30px 18px -8px rgba(0, 0, 0, 0.1);
+    transform: scale(1.1, 1.1);
+    .card__img--hover {
+      height: 100%;
+      opacity: 0.3;
+    }
+
+    .card__img {
+      height: 30px;
+    }
+
+    .card__info {
+      background-color: transparent;
+      position: relative;
+    }
+
+    .card__info-hover {
+      opacity: 1;
+    }
+
+    .card__details {
+      visibility: visible;
+    }
+
+    .card__price {
+      font-weight: bold;
+    }
+  }
+
+  &__like {
+    width: 18px;
+  }
+
+  &__img {
+    visibility: hidden;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 235px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+  }
+
+  &__img--hover {
+    transition: 0.2s all ease-out;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    position: absolute;
+    height: 235px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    top: 0;
+  }
+
+  &__info {
+    z-index: 2;
+    background-color: #fff;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    padding: 16px 24px 24px 24px;
+  }
+
+  &__info-hover {
+    position: absolute;
+    padding: 16px;
+    width: 100%;
+    opacity: 0;
+    top: 0;
+  }
+
+  &__price {
+    font-family: "Raleway", sans-serif;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 2px;
+    font-weight: 500;
+    color: #868686;
+    user-select: none;
+  }
+
+  &__title {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-family: "Roboto Slab", serif;
+    letter-spacing: 1px;
+    user-select: none;
+  }
+
+  &__by {
+    font-size: 12px;
+    font-family: "Raleway", sans-serif;
+    font-weight: 500;
+  }
+
+  &__author {
+    font-weight: 600;
+    text-decoration: none;
+    color: #ad7d52;
+  }
+
+  &__details {
+    visibility: hidden;
+    p {
+      user-select: none;
+    }
+    p,
+    span {
+      text-align: justify;
+      font-size: 0.7rem;
+      letter-spacing: 1.15px;
+      white-space: break-spaces;
+    }
+  }
+}
