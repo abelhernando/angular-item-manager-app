@@ -1,1 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Inter&family=Nunito&display=swap");
+@import "./app/styles/variables";
+
+body,
+html {
+  font-family: $ff-inter;
+  letter-spacing: 1.15px;
+  overflow-x: hidden;
+}
