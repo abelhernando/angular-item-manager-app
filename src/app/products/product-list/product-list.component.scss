@@ -1,4 +1,16 @@
-.home {
+.product {
+  &__header {
+    display: flex;
+    place-content: space-evenly;
+    height: 50px;
+    width: 94%;
+
+    @media (max-width: 700px) {
+      display: inline-grid;
+      justify-items: center;
+    }
+  }
+
   &__card-container {
     margin: 80px;
     display: grid;

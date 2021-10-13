@@ -10,34 +10,31 @@ import { environment } from 'src/environments/environment';
 export class ProductsService {
   private _url = `${environment.apiUrl}/products`;
 
-  private currentProductListSubject: BehaviorSubject<ProductsResponse>;
-  public currentProductList: Observable<ProductsResponse>;
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) {
-    this.currentProductListSubject = new BehaviorSubject<ProductsResponse>({
-      products: [],
-      totalCount: 0,
-      pageCount: 0,
+  private getUrlWithParams(params: GetProductsParams): string {
+    let url = this._url;
+    let operator = '?';
+
+    Object.entries(params).forEach(([key, value]) => {
+      if (!value) return;
+      if (url.includes('?')) operator = '&';
+      if (key === 'sort') {
+        Object.entries(params[key]).forEach(([key, value]) => {
+          if (!params.sort.field) return;
+          url = `${url + operator + key}=${value}`;
+        });
+      } else {
+        url = `${url + operator + key}=${value}`;
+      }
     });
-    this.currentProductList = this.currentProductListSubject.asObservable();
-  }
-  getProductList(pageNumber: number) {
-    const url = `${this._url}?page=${pageNumber}`;
-    return this.http.get<ProductsResponse>(this._url).pipe(
-      map((products) => {
-        this.currentProductListSubject.next(products);
-        return products;
-      })
-    );
+
+    return url;
   }
 
-  searchProduct(value: string) {
-    const url = `${this._url}?search=${value}`;
-    return this.http.get<ProductsResponse>(url).pipe(
-      map((products) => {
-        this.currentProductListSubject.next(products);
-        return products;
-      })
-    );
+  public getProducts(params: GetProductsParams) {
+    const url = this.getUrlWithParams(params);
+
+    return this.http.get<ProductsResponse>(url);
   }
 }

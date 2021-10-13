@@ -1,4 +1,8 @@
-<div class="search">
-  <input type="search" #searchInput placeholder="Search..." />
-  <img src="/assets/icons/search.svg" alt="search" width="12px"/>
+<div
+  class="search"
+  [ngClass]="{ 'search--open': isOpen }"
+  (mouseenter)="isOpen = true"
+>
+  <input type="search" #searchInput placeholder="Type me something!" />
+  <img src="/assets/icons/search.svg" alt="search" width="12px" />
 </div>

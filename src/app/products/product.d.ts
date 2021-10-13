@@ -1,4 +1,10 @@
-interface Product {
+interface ProductsResponse {
+  products: IProduct[];
+  totalCount: number;
+  pageCount: number;
+}
+
+interface ProductRaw {
   title: string;
   description: string;
   price: string;
@@ -6,8 +12,17 @@ interface Product {
   image: string;
 }
 
-interface ProductsResponse {
-  products: Product[];
-  totalCount: number;
-  pageCount: number;
+interface IProduct extends ProductRaw {
+  isFavorite: boolean;
+}
+
+interface GetProductsParams {
+  search: string;
+  page: number;
+  sort?: any;
+}
+
+interface Sort {
+  field?: keyof ProductRaw;
+  sort?: 'asc' | 'desc';
 }

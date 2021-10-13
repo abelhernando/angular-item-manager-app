@@ -1,13 +1,13 @@
 .search {
   display: block;
   position: relative;
-  transition: all 1s;
+  transition: all 0.8s;
   width: 50px;
   height: 50px;
   background: white;
   box-sizing: border-box;
   border-radius: 25px;
-  border: 4px solid #00aaca;
+  border: 4px solid #d3d1d1;
   padding: 5px;
 
   input {
@@ -40,9 +40,10 @@
     transition: all 1s;
   }
 
-  &:hover {
-    width: 200px;
+  &--open {
+    width: 300px;
     cursor: pointer;
+    border: 4px solid #00aaca;
     input {
       display: block;
     }

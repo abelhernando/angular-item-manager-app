@@ -1,17 +1,18 @@
 const DB = require("./database.json");
 
 const logic = {
-  pageSize: 5,
+  limit: 5,
 
-  getAllItems(pageNumber) {
+  getProducts(search, pageNumber, sort) {
     const page = Number(pageNumber) || 1;
+    let items = DB.items;
 
-    const first = (page - 1) * this.pageSize;
-    const last = page * this.pageSize;
+    if (search) items = logic._getSearchedItems(items, search);
 
-    const items = DB.items.slice(first, last);
-    totalCount = DB.items.length;
-    pageCount = Math.ceil(totalCount / this.pageSize);
+    totalCount = items.length;
+    pageCount = Math.ceil(totalCount / this.limit);
+
+    items = this._prepareData(items, page, sort);
 
     return {
       products: items,
@@ -20,26 +21,69 @@ const logic = {
     };
   },
 
-  getSearchedItems(search) {
-    const searchValue = search.toLowerCase();
-    const foundItems = DB.items.filter((item) => {
+  _prepareData(data, page, sort) {
+    const preparingData = [...data];
+    const sortedItems = this._sortData(preparingData, sort);
+    const items = this._paginateData(sortedItems, page);
+    return items;
+  },
+
+  _paginateData(data, page) {
+    const first = (page - 1) * this.limit;
+    const last = page * this.limit;
+
+    return data.slice(first, last);
+  },
+
+  _sortData(data, sort) {
+    const isSorted =
+      !sort || (sort && sort.hasOwnProperty("field") && !sort.field);
+
+    if (isSorted) return data;
+
+    const result = this._sortAction(data, sort);
+    return result;
+  },
+
+  _sortAction(data, sort) {
+    return data.sort((a, b) => {
+      let pre = a[sort.field];
+      let post = b[sort.field];
+
+      if (sort.field === "price") {
+        pre = Number(pre);
+        post = Number(post);
+      }
+      if (sort.order === "asc") {
+        if (pre > post) {
+          return 1;
+        }
+        if (pre < post) {
+          return -1;
+        }
+      } else if (sort.order === "desc") {
+        if (pre < post) {
+          return 1;
+        }
+        if (pre > post) {
+          return -1;
+        }
+      }
+
+      return 0;
+    });
+  },
+
+  _getSearchedItems(data, search) {
+    const value = search.toLowerCase();
+    return data.filter((item) => {
       return (
-        item.title.toLowerCase().includes(searchValue) ||
-        item.description.toLowerCase().includes(searchValue) ||
-        item.email.toLowerCase().includes(searchValue)
+        item.title.toLowerCase().includes(value) ||
+        item.description.toLowerCase().includes(value) ||
+        item.email.toLowerCase().includes(value) ||
+        item.price.includes(value)
       );
     });
-
-    const pageSize = 5;
-    const items = foundItems.slice(0, pageSize);
-    totalCount = foundItems.length;
-    pageCount = Math.ceil(totalCount / pageSize);
-
-    return {
-      items,
-      totalCount,
-      pageCount,
-    };
   },
 };
 

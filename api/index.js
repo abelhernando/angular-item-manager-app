@@ -1,7 +1,7 @@
 const bodyParser = require("body-parser");
 const express = require("express");
 const cors = require("cors");
-const logic = require("./logic.js");
+const logic = require("./logic");
 
 const app = express();
 const port = "8080";
@@ -15,11 +15,8 @@ app.listen(port, () => {
 });
 
 app.get("/products", (req, res) => {
-  const search = req.query.search;
-  let response;
-
-  if (search) response = logic.getSearchedItems(search);
-  else response = logic.getAllItems();
+  const sort = { field: req.query.field, order: req.query.order };
+  const response = logic.getProducts(req.query.search, req.query.page, sort);
 
   res.status(200).json(response);
 });

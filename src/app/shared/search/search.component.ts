@@ -2,49 +2,59 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  Input,
+  OnDestroy,
   OnInit,
   Output,
   ViewChild,
 } from '@angular/core';
-import { fromEvent } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
-import { ProductsService } from 'src/app/products/products.service';
-
+import { fromEvent, Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
   @ViewChild('searchInput', { static: true })
   searchInput: ElementRef<HTMLInputElement> = {} as ElementRef;
 
-  @Output() searchedItem: EventEmitter<ProductsResponse> =
-    new EventEmitter<ProductsResponse>();
+  @Output() searchedInput = new EventEmitter<string>();
 
-  constructor(private productsService: ProductsService) {}
+  @Input() debounceTime = 600;
+
+  public isOpen = false;
+
+  private _searchSubscription!: Subscription;
+
+  constructor() {}
 
   ngOnInit(): void {
     this.searchListener();
   }
 
-  searchListener() {
-    fromEvent(this.searchInput.nativeElement, 'keyup')
-      .pipe(
-        map((event: Event) => (event.target as HTMLInputElement).value),
-        debounceTime(600),
-        distinctUntilChanged()
-      )
-      .subscribe((text) => this.searchAction(text));
+  ngOnDestroy(): void {
+    if (this._searchSubscription) this._searchSubscription.unsubscribe();
   }
 
-  searchAction(searchedText: string) {
-    this.productsService.searchProduct(searchedText).subscribe(
-      (response) => {
-        this.searchedItem.emit(response);
-      },
-      (err) => console.warn(err)
-    );
+  searchListener(): void {
+    this._searchSubscription = fromEvent(
+      this.searchInput.nativeElement,
+      'keyup'
+    )
+      .pipe(
+        map((event: Event) => (event.target as HTMLInputElement).value),
+        debounceTime(this.debounceTime),
+        distinctUntilChanged(),
+        tap({
+          next: (value) => {
+            this.isOpen = !!value;
+          },
+        })
+      )
+      .subscribe({
+        next: (text) => this.searchedInput.emit(text),
+      });
   }
 }

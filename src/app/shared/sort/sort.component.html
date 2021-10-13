@@ -1,1 +1,51 @@
-<p>sort works!</p>
+<div class="sort">
+  <select
+    name="sort"
+    id="sort"
+    (change)="onSelectSort($event)"
+    [ngClass]="{ open: isOpen }"
+    (mouseenter)="isOpen = true"
+    (mouseleave)="isOpen = false"
+  >
+    <option value="" selected disabled>Order me!</option>
+    <option value="title">Title</option>
+    <option value="description">Description</option>
+    <option value="email">Email</option>
+    <option value="price">Price</option>
+  </select>
+  <div class="order" (click)="changeOrder()">
+    <svg
+      [ngClass]="{ active: !!field && order === 'asc' }"
+      width="16"
+      height="9"
+      viewBox="0 0 16 9"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M1 8L8 1L15 8"
+        stroke="#d3d1d1"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+
+    <svg
+      [ngClass]="{ active: !!field && order === 'desc' }"
+      width="16"
+      height="9"
+      viewBox="0 0 16 9"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M15 1L8 8L1 1"
+        stroke="#d3d1d1"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  </div>
+</div>

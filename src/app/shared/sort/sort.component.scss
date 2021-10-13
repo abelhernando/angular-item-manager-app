@@ -1,0 +1,80 @@
+.sort {
+  display: flex;
+  align-items: center;
+
+  select {
+    margin-right: 15px;
+    cursor: pointer;
+    height: 42.5px;
+    line-height: 30px;
+    outline: 0;
+    font-size: 1em;
+    border-radius: 20px;
+    padding: 0 20px;
+    transition: all 0.8s;
+    height: 50px;
+    background: white;
+    box-sizing: border-box;
+    border-radius: 25px;
+    border: 4px solid #d3d1d1;
+    padding: 5px;
+    &.open {
+      border: 4px solid #00aaca;
+    }
+  }
+
+  .order {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    svg:first-child {
+      margin-bottom: 4px;
+    }
+
+    .active {
+      path {
+        stroke: #00aaca;
+      }
+    }
+  }
+}
+.sort {
+  display: flex;
+  align-items: center;
+
+  select {
+    margin-right: 15px;
+    cursor: pointer;
+    height: 42.5px;
+    line-height: 30px;
+    outline: 0;
+    font-size: 1em;
+    border-radius: 20px;
+    padding: 0 20px;
+    transition: all 0.8s;
+    height: 50px;
+    background: white;
+    box-sizing: border-box;
+    border-radius: 25px;
+    border: 4px solid #d3d1d1;
+    padding: 5px;
+    &.open {
+      border: 4px solid #00aaca;
+    }
+  }
+
+  .order {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    svg:first-child {
+      margin-bottom: 4px;
+    }
+
+    .active {
+      path {
+        stroke: #00aaca;
+      }
+    }
+  }
+}

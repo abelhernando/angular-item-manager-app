@@ -1,40 +1,36 @@
-import { Component, OnInit } from '@angular/core';
-import { ProductsService } from '../products.service';
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { merge } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { ProductsListService } from './products-list.service';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.scss'],
 })
-export class ProductListComponent implements OnInit {
-  productList: Product[] = [];
-  totalItems = 0;
-  pageCount = 0;
+export class ProductListComponent {
+  private _initialResponse$ = this.activatedRoute.data.pipe(
+    map(({ products }) => products)
+  );
 
-  constructor(private productService: ProductsService) {}
+  private productResponse$ = this.productListService.productResponse$;
+  public state$ = merge(this._initialResponse$, this.productResponse$);
 
-  ngOnInit(): void {
-    this.getProductList();
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private productListService: ProductsListService
+  ) {}
+
+  onSearch(value: string): void {
+    this.productListService.setSearch(value);
   }
 
-  getProductList(pageNumber: number = 1): void {
-    this.productService.getProductList(pageNumber).subscribe(
-      (response) => {
-        console.log('~ response', response);
-        this.productList = response.products;
-        this.totalItems = response.totalCount;
-        this.pageCount = response.pageCount;
-      },
-      (err) => console.warn(err)
-    );
+  onPageChange(page: number): void {
+    this.productListService.setPage(page);
   }
 
-  onPageChange(pageNumber: number = 1): void {
-    this.getProductList(pageNumber);
-  }
-  onSearchItem(item: any): void {
-    this.productList = item.items;
-    this.totalItems = item.totalCount;
-    this.pageCount = item.pageCount;
+  onSort(sort: Sort): void {
+    this.productListService.setSort(sort);
   }
 }
