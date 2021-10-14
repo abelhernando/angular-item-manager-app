@@ -7,11 +7,12 @@ import { SortComponent } from './sort/sort.component';
 
 @NgModule({
   declarations: [
+    CardComponent,
     PaginationComponent,
     SearchComponent,
     SortComponent,
   ],
   imports: [CommonModule],
-  exports: [PaginationComponent, SearchComponent, SortComponent],
+  exports: [CardComponent, PaginationComponent, SearchComponent, SortComponent],
 })
 export class SharedModule {}

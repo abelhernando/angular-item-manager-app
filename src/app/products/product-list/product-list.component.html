@@ -16,7 +16,9 @@
             stroke="black"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            (click)="product.toggleFavorite()"
             style="cursor: pointer"
+            [ngClass]="{ active: product.isFavorite }"
           >
             <path
               fill-rule="evenodd"

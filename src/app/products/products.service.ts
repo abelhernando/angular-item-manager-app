@@ -1,8 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { ProductFactory } from './product/product.factory';
+
+const PRODUCTS_CACHE = new Map();
 
 @Injectable({
   providedIn: 'root',
@@ -10,12 +13,14 @@ import { environment } from 'src/environments/environment';
 export class ProductsService {
   private _url = `${environment.apiUrl}/products`;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private productFactory: ProductFactory
+  ) {}
 
   private getUrlWithParams(params: GetProductsParams): string {
     let url = this._url;
     let operator = '?';
-
     Object.entries(params).forEach(([key, value]) => {
       if (!value) return;
       if (url.includes('?')) operator = '&';
@@ -35,6 +40,20 @@ export class ProductsService {
   public getProducts(params: GetProductsParams) {
     const url = this.getUrlWithParams(params);
 
-    return this.http.get<ProductsResponse>(url);
+    if (PRODUCTS_CACHE.has(url)) {
+      return of(PRODUCTS_CACHE.get(url));
+    }
+
+    return this.http.get<ProductsResponse>(url).pipe(
+      map((response) => ({
+        ...response,
+        products: response.products.map((product) =>
+          this.productFactory.create(product)
+        ),
+      })),
+      tap({
+        next: (response) => PRODUCTS_CACHE.set(url, response),
+      })
+    );
   }
 }

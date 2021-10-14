@@ -5,9 +5,11 @@ import { ProductFavoritesComponent } from './product-favorites/product-favorites
 import { SharedModule } from '../shared/shared.module';
 import { CoreModule } from '../core/core.module';
 import { CardComponent } from '../shared/card/card.component';
+import { ProductsResolver } from './products.resolver';
 
 @NgModule({
-  declarations: [ProductListComponent, ProductFavoritesComponent, CardComponent],
+  declarations: [ProductListComponent, ProductFavoritesComponent],
   imports: [CommonModule, SharedModule, CoreModule],
+  providers: [ProductsResolver],
 })
 export class ProductsModule {}

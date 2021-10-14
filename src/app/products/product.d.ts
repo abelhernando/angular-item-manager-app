@@ -1,3 +1,5 @@
+declare module 'uuid';
+
 interface ProductsResponse {
   products: IProduct[];
   totalCount: number;

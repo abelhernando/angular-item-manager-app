@@ -1,15 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { pipe } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { ProductFavoritesService } from './product-favorites.service';
 
 @Component({
   selector: 'app-product-favorites',
   templateUrl: './product-favorites.component.html',
-  styleUrls: ['./product-favorites.component.scss']
+  styleUrls: ['./product-favorites.component.scss'],
 })
-export class ProductFavoritesComponent implements OnInit {
+export class ProductFavoritesComponent {
+  public modalOpen = false;
+  public favorites$ = this.productFavoritesService.favorites$;
+  public displayedFavorites$ = this.favorites$;
 
-  constructor() { }
+  constructor(private productFavoritesService: ProductFavoritesService) {}
 
-  ngOnInit(): void {
+  onClickFavorites() {
+    this.modalOpen = !this.modalOpen;
   }
 
+  searchFavorites(text: string) {
+    this.displayedFavorites$ = this.favorites$.pipe(
+      map((favorites) =>
+        favorites.filter((f) =>
+          f.title.toLowerCase().includes(text.toLowerCase())
+        )
+      )
+    );
+  }
 }
