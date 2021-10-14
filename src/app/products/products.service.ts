@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { ProductFactory } from './product/product.factory';
 
@@ -53,6 +53,14 @@ export class ProductsService {
       })),
       tap({
         next: (response) => PRODUCTS_CACHE.set(url, response),
+      }),
+      catchError((err: Error) => {
+        console.warn('Error on the HTTP request: ', err);
+        return of({
+          products: [],
+          totalCount: 0,
+          pageCount: 0,
+        });
       })
     );
   }

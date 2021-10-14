@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { merge } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { ProductsListService } from './products-list.service';
+import { concat } from 'rxjs';
+import { map, take } from 'rxjs/operators';
+import { ProductListService } from './product-list.service';
 
 @Component({
   selector: 'app-product-list',
@@ -10,16 +10,19 @@ import { ProductsListService } from './products-list.service';
   styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent {
+  @Input() isList: boolean = false;
+
   private _initialResponse$ = this.activatedRoute.data.pipe(
-    map(({ products }) => products)
+    map(({ products }) => products),
+    take(1)
   );
 
   private productResponse$ = this.productListService.productResponse$;
-  public state$ = merge(this._initialResponse$, this.productResponse$);
+  public state$ = concat(this._initialResponse$, this.productResponse$);
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private productListService: ProductsListService
+    private productListService: ProductListService
   ) {}
 
   onSearch(value: string): void {

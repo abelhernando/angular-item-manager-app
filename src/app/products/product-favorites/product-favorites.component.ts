@@ -10,7 +10,7 @@ import { ProductFavoritesService } from './product-favorites.service';
 })
 export class ProductFavoritesComponent {
   public modalOpen = false;
-  public favorites$ = this.productFavoritesService.favorites$;
+  public favorites$ = this.productFavoritesService.items$;
   public displayedFavorites$ = this.favorites$;
 
   constructor(private productFavoritesService: ProductFavoritesService) {}

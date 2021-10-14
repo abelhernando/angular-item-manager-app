@@ -1,31 +1,30 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { CollectionService } from 'src/app/models';
 import { Product } from '../product/Product';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ProductFavoritesService {
-  public favorites$: Observable<Product[]>;
+export class ProductFavoritesService implements CollectionService<Product> {
+  public items$: Observable<Product[]>;
 
   private favoriteBS = new BehaviorSubject<Product[]>([]);
 
   constructor() {
-    this.favorites$ = this.favoriteBS.asObservable();
+    this.items$ = this.favoriteBS.asObservable();
   }
 
-  public setFavorite(favorite: Product): void {
-    this.favoriteBS.next([...this.getFavorites(), favorite]);
+  public setItem(favorite: Product): void {
+    this.favoriteBS.next([...this.getItems(), favorite]);
   }
 
-  public getFavorites(): Product[] {
+  public getItems(): Product[] {
     return this.favoriteBS.getValue();
   }
 
-  public removeFavorite(favoriteId: string): void {
-    const newFavorites = this.getFavorites().filter(
-      (fav) => fav.id !== favoriteId
-    );
+  public removeItem(favoriteId: string): void {
+    const newFavorites = this.getItems().filter((fav) => fav.id !== favoriteId);
     this.favoriteBS.next(newFavorites);
   }
 }

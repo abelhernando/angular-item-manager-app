@@ -28,14 +28,14 @@ export class Product {
     this.email = productItem.email;
     this.image = productItem.image;
 
-    this.isFavorite$ = this.productFavoritesService.favorites$.pipe(
+    this.isFavorite$ = this.productFavoritesService.items$.pipe(
       map((favorites) => !!favorites.find((f) => f.id === this.id))
     );
   }
 
   public get isFavorite(): boolean {
     const found = this.productFavoritesService
-      .getFavorites()
+      .getItems()
       .find((f) => f.id === this.id);
 
     return !!found;
@@ -43,9 +43,9 @@ export class Product {
 
   public toggleFavorite(): void {
     if (this.isFavorite) {
-      this.productFavoritesService.removeFavorite(this.id);
+      this.productFavoritesService.removeItem(this.id);
     } else {
-      this.productFavoritesService.setFavorite(this);
+      this.productFavoritesService.setItem(this);
     }
   }
 }

@@ -7,7 +7,7 @@ import { ProductsService } from '../products.service';
 @Injectable({
   providedIn: 'root',
 })
-export class ProductsListService {
+export class ProductListService {
   private _search$ = new BehaviorSubject<string>(SEARCH_DEFAULT);
 
   private _page$ = new BehaviorSubject<number>(PAGE_DEFAULT);
