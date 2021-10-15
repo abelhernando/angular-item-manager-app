@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const logic = require("./logic");
+const logic = require("../logic");
 
 const app = express();
 const port = "8080";

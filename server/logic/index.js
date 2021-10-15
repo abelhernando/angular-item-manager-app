@@ -1,4 +1,4 @@
-const DB = require("./database.json");
+const DB = require("../data/products.json");
 
 const logic = {
   limit: 5,
