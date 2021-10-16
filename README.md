@@ -36,12 +36,12 @@ The commits have been made following the guidelines of [Conventional Commits](ht
 ### Tests
 
 - To run the server tests: 
-    - npm run server:test
-    - npm run server:coverage
+    - `npm run server:test`
+    - `npm run server:coverage`
 
 - To run the app tests:
-    - npm run test
-    - npm run test:coverage
+    - `npm run test`
+    - `npm run test:coverage`
 
 ## Author
 
