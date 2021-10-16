@@ -1,27 +1,48 @@
-# ItemManagerApp
+# Item Manager App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.1.0.
+## Description
 
-## Development server
+This is a Single Page Application that has the purpose of emulating a platform where users can view different products incorporated by other users
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### Features
 
-## Code scaffolding
+- The user views a list of 5 items
+- The user can change the page to view other items
+- It has a search engine in the central part to be able to search by title, description, email, price
+- You can sort from highest to lowest for each of those attributes
+- It is possible to create a list of favorites by pressing the heart located inside each card
+- To view the list of favorites, you only need to press the heart of the main page and a modal will open with all of them
+- In the favorites list you can search
+- And also remove products from favorites
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Peculiarities
 
-## Build
+A server has been created to manage these functionalities in the most realistic way possible.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+The Architecture approach is by features, each folder is a feature and all the different features would come inside, without adding unnecessary nesting and encompassing everything that a feature needs in the same folder.
 
-## Running unit tests
+The commits have been made following the guidelines of [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) based on the [Angular convention](https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#-commit-message-guidelines)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Installation
 
-## Running end-to-end tests
+1. Make a clone of the project:
+2. Do `npm install` to install all the libraries used
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+### Running
 
-## Further help
+- Server: `npm run server` - will run in the port: `8080`
+- App: `npm start` - will run in the port: `http://localhost:4200/`
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Tests
+
+- To run the server tests: 
+    - npm run server:test
+    - npm run server:coverage
+
+- To run the app tests:
+    - npm run test
+    - npm run test:coverage
+
+## Author
+
+Abel Hernando
