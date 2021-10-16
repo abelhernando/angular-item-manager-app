@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { ProductFactory } from './product/product.factory';
@@ -37,7 +37,7 @@ export class ProductsService {
     return url;
   }
 
-  public getProducts(params: GetProductsParams) {
+  public getProducts(params: GetProductsParams): Observable<ProductsResponse> {
     const url = this.getUrlWithParams(params);
 
     if (PRODUCTS_CACHE.has(url)) {

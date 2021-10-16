@@ -11,6 +11,7 @@
   &:hover {
     box-shadow: 0px 30px 18px -8px rgba(0, 0, 0, 0.1);
     transform: scale(1.1, 1.1);
+
     .card__image--hover {
       height: 100%;
       opacity: 0.3;
@@ -29,6 +30,7 @@
     .card__header {
       opacity: 1;
       z-index: 1;
+
       svg {
         cursor: pointer;
       }
@@ -113,11 +115,13 @@
 
   &__footer {
     visibility: hidden;
+
     div span {
       p {
         user-select: none !important;
       }
     }
+
     p,
     span {
       text-align: justify;
@@ -126,19 +130,23 @@
       letter-spacing: 0.15px;
       white-space: break-spaces;
     }
+
     span {
       font-size: 12px;
       font-family: "Raleway", sans-serif;
       font-weight: 500;
+
       a {
         font-weight: 600;
         text-decoration: none;
         color: #ad7d52;
       }
     }
+
     p {
       user-select: none;
     }
+
     p,
     span {
       text-align: justify;

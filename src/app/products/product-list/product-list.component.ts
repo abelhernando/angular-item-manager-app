@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { concat } from 'rxjs';
 import { map, take } from 'rxjs/operators';
@@ -10,7 +10,6 @@ import { ProductListService } from './product-list.service';
   styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent {
-  @Input() isList: boolean = false;
 
   private _initialResponse$ = this.activatedRoute.data.pipe(
     map(({ products }) => products),
