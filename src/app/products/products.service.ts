@@ -25,9 +25,9 @@ export class ProductsService {
       if (!value) return;
       if (url.includes('?')) operator = '&';
       if (key === 'sort') {
-        Object.entries(params[key]).forEach(([key, value]) => {
+        Object.entries(params[key]).forEach(([k, v]) => {
           if (!params.sort.field) return;
-          url = `${url + operator + key}=${value}`;
+          url = `${url + operator + k}=${v}`;
         });
       } else {
         url = `${url + operator + key}=${value}`;

@@ -6,6 +6,7 @@ import {
   EventEmitter,
   ChangeDetectionStrategy,
   ViewEncapsulation,
+  OnDestroy,
 } from '@angular/core';
 
 @Component({
@@ -15,20 +16,20 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.ShadowDom,
 })
-export class ModalComponent implements OnInit {
-  @Output() close = new EventEmitter();
+export class ModalComponent implements OnInit, OnDestroy {
+  @Output() closeModal = new EventEmitter();
 
   constructor(private el: ElementRef) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     document.body.appendChild(this.el.nativeElement);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.el.nativeElement.remove();
   }
 
-  onCloseClick() {
-    this.close.emit();
+  onCloseClick(): void {
+    this.closeModal.emit();
   }
 }

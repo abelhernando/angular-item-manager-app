@@ -13,7 +13,7 @@ describe('ProductsService', () => {
   let mockHttpService: HttpClient;
   let mockProductFactory: ProductFactory;
 
-  let title = 'Bolso piel marca Hoss';
+  const title = 'Bolso piel marca Hoss';
 
   beforeEach(() => {
     item = {

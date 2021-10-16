@@ -15,11 +15,11 @@ export class ProductFavoritesComponent {
 
   constructor(private productFavoritesService: ProductFavoritesService) {}
 
-  onClickFavorites() {
+  onClickFavorites(): void {
     this.modalOpen = !this.modalOpen;
   }
 
-  searchFavorites(text: string) {
+  searchFavorites(text: string): void {
     this.displayedFavorites$ = this.favorites$.pipe(
       map((favorites) =>
         favorites.filter((f) =>
