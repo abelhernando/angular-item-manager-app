@@ -8,7 +8,7 @@
     "server:test": "mocha ./server",
     "server:coverage": "nyc mocha ./server",
     "build": "ng build",
-    "test": "npm run server:test && ng test",
+    "test": "ng test",
     "test:coverage": "ng test --code-coverage",
     "lint": "ng lint",
     "e2e": "ng e2e"

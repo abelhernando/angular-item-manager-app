@@ -18,7 +18,7 @@ describe('ModalComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
 
-    emitEvent = spyOn<any>(component.close, 'emit');
+    emitEvent = spyOn<any>(component.closeModal, 'emit');
   });
 
   it('should create', () => {
